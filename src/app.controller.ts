@@ -13,6 +13,6 @@ export class AppController {
      return this.appService.getHello();
    } */
   index() {
-    return 'index'
+    return 'index';
   }
 }
