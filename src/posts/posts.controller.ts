@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Query, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 
 class CreatePostDto {
-  @ApiModelProperty({description: '帖子标题'})
+  @ApiModelProperty({ description: '帖子标题' })
   title: string
-  @ApiModelProperty({description: '帖子文章'})
+  @ApiModelProperty({ description: '帖子文章' })
   content: string
 }
 
@@ -14,23 +14,23 @@ class CreatePostDto {
 export class PostsController {
   @Get()
   //给API区分
-  @ApiOperation({title: '显示博客列表'})
+  @ApiOperation({ title: '帖子列表' })
   index() {
     return [
-      {id: 1, title: 'helle word 博客'},
-      {id: 1, title: 'helle word 博客'},
-      {id: 1, title: 'helle word 博客'},
-      {id: 1, title: 'helle word 博客'},
-      {id: 1, title: 'helle word 博客'},
-      {id: 1, title: 'helle word 博客'}
+      { id: 1, title: 'helle word 博客' },
+      { id: 1, title: 'helle word 博客' },
+      { id: 1, title: 'helle word 博客' },
+      { id: 1, title: 'helle word 博客' },
+      { id: 1, title: 'helle word 博客' },
+      { id: 1, title: 'helle word 博客' }
     ];
   }
 
   @Post()
-  @ApiOperation({title: '创建帖子'})
+  @ApiOperation({ title: '创建帖子' })
   //使用参数装饰器获取请求体数据,从get中获取参数
   //create(@Body() body,@Query() query, @Param() params){
-  create(@Body() body: CreatePostDto){
+  create(@Body() body: CreatePostDto) {
     return {
       success: true,
       body
@@ -38,10 +38,27 @@ export class PostsController {
   }
 
   @Get(':id')
-  detail(){
+  @ApiOperation({ title: '帖子详情' })
+  detail(@Param('id') id: string) {
     return {
       id: 1,
       title: 'qbneben hello'
+    }
+  }
+
+  @Put(':id')
+  @ApiOperation({ title: '编辑帖子' })
+  updata(@Param('id') id: string, @Body() body: CreatePostDto) {
+    return {
+      success: true
+    }
+  }
+
+  @Delete('id')
+  @ApiOperation({ title: '删除帖子' })
+  remove(@Param('id') id: string) {
+    return {
+      success: true
     }
   }
 }
