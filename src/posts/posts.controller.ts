@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param, Body, Query, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
+import { PostModel } from './post.model';
 
 
 class CreatePostDto {
@@ -16,15 +17,8 @@ export class PostsController {
   @Get()
   //给API区分
   @ApiOperation({ title: '帖子列表' })
-  index() {
-    return [
-      { id: 1, title: 'helle word 博客' },
-      { id: 2, title: 'helle word 博客' },
-      { id: 3, title: 'helle word 博客' },
-      { id: 4, title: 'helle word 博客' },
-      { id: 5, title: 'helle word 博客' },
-      { id: 6, title: 'helle word 博客' }
-    ];
+  async index() {
+    return await PostModel.find()
   }
 
   @Post()
