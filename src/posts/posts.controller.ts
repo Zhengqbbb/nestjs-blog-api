@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Param, Body, Query, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 
+
 class CreatePostDto {
   @ApiModelProperty({ description: '帖子标题' })
   title: string
@@ -18,11 +19,11 @@ export class PostsController {
   index() {
     return [
       { id: 1, title: 'helle word 博客' },
-      { id: 1, title: 'helle word 博客' },
-      { id: 1, title: 'helle word 博客' },
-      { id: 1, title: 'helle word 博客' },
-      { id: 1, title: 'helle word 博客' },
-      { id: 1, title: 'helle word 博客' }
+      { id: 2, title: 'helle word 博客' },
+      { id: 3, title: 'helle word 博客' },
+      { id: 4, title: 'helle word 博客' },
+      { id: 5, title: 'helle word 博客' },
+      { id: 6, title: 'helle word 博客' }
     ];
   }
 
