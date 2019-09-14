@@ -4,9 +4,9 @@ import { PostModel } from './post.model';
 
 
 class CreatePostDto {
-  @ApiModelProperty({ description: '帖子标题' })
+  @ApiModelProperty({ description: '帖子标题', example: '帖子标题default' })
   title: string
-  @ApiModelProperty({ description: '帖子文章' })
+  @ApiModelProperty({ description: '帖子文章', example: '帖子文章default' })
   content: string
 }
 
@@ -18,40 +18,39 @@ export class PostsController {
   //给API区分
   @ApiOperation({ title: '帖子列表' })
   async index() {
-    return await PostModel.find()
+    return await PostModel.find();
   }
 
   @Post()
   @ApiOperation({ title: '创建帖子' })
   //使用参数装饰器获取请求体数据,从get中获取参数
   //create(@Body() body,@Query() query, @Param() params){
-  create(@Body() body: CreatePostDto) {
-    return {
-      success: true,
-      body
-    }
-  }
-
-  @Get(':id')
-  @ApiOperation({ title: '帖子详情' })
-  detail(@Param('id') id: string) {
-    return {
-      id: 1,
-      title: 'qbneben hello'
-    }
-  }
-
-  @Put(':id')
-  @ApiOperation({ title: '编辑帖子' })
-  updata(@Param('id') id: string, @Body() body: CreatePostDto) {
+  async create(@Body() createPostDto: CreatePostDto) {
+    await PostModel.create(createPostDto);
     return {
       success: true
     }
   }
 
-  @Delete('id')
+  @Get(':id')
+  @ApiOperation({ title: '帖子详情' })
+  async detail(@Param('id') id: string) {
+    return await PostModel.findById(id);
+  }
+
+  @Put(':id')
+  @ApiOperation({ title: '编辑帖子' })
+  async updata(@Param('id') id: string, @Body() updataPostDto: CreatePostDto) {
+    await PostModel.findByIdAndUpdate(id, updataPostDto);
+    return {
+      success: true
+    }
+  }
+
+  @Delete(':id')
   @ApiOperation({ title: '删除帖子' })
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await PostModel.findByIdAndDelete(id);
     return {
       success: true
     }
