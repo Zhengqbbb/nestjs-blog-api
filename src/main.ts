@@ -2,16 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module'; //根模块
 
-import * as mongoose from 'mongoose'
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  mongoose.connect('mongodb://localhost/nestjs-blog-api',{
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-  })
-
   const app = await NestFactory.create(AppModule);
   //有点类似有express中的中间件
   app.useGlobalPipes(new ValidationPipe())
